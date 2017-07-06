@@ -3,7 +3,7 @@
     Created on : Jun 29, 2017, 5:03:31 PM
     Author     : samislavath
 --%>
-<%@ page import ="folder.extract" %>
+<%@page import ="folder.extract" %>
 <%@page import="java.io.File"%>
 <%@page import="java.awt.image.BufferedImage"%>
 <%@page import="javax.imageio.ImageIO"%>
@@ -62,21 +62,21 @@
 
                 /*String sam=(String)request.getAttribute("key");
                 String sa=request.getParameter(sam);
-                out.println(sa);*/
+                out.println(sa);*///"https://requestb.in/1akmhud1"https://parivahan.gov.in/rcdlstatus/vahan/rcDlHome.xhtml
                     Document responses = 
                         Jsoup.connect("https://parivahan.gov.in/rcdlstatus/vahan/rcDlHome.xhtml")
-                        .userAgent("Mozilla/5.0")
-                        .timeout(10 * 1000000)
+                        .userAgent(" curl/7.47.0")
+                        //.timeout(10 * 1000000)
                         .method(Method.POST)
                         //.ignoreContentType(true)
                         .header("Content-Type","application/x-www-form-urlencoded")
                         .cookie("JSESSIONID",ID)
                         .data("form_rcdl","form_rcdl")
-                        .data("form_rcdl%3Atf_reg_no1",reg1)
-                        .data("form_rcdl%3Atf_reg_no2",reg2)
-                        .data("form_rcdl%3Atf_Mobile",mbno)
-                        .data("form_rcdl%3Aj_idt61","")
-                        .data("form_rcdl%3Aj_idt32%3ACaptchaID",cid)
+                        .data("form_rcdl:tf_reg_no1",reg1)
+                        .data("form_rcdl:tf_reg_no2",reg2)
+                        .data("form_rcdl:tf_Mobile",mbno)
+                        .data("form_rcdl:j_idt61","")
+                        .data("form_rcdl:j_idt32:CaptchaID",cid)
                         .ignoreHttpErrors(true)
                         .followRedirects(true)
                         .data("javax.faces.ViewState",s1)

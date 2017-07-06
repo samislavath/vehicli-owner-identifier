@@ -81,7 +81,7 @@ public final class page1_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        ");
 
             Connection.Response loginForm = Jsoup
-        .connect("https://parivahan.gov.in/rcdlstatus/?pur_cd=102").userAgent("Mozilla")
+        .connect("https://parivahan.gov.in/rcdlstatus/?pur_cd=102").userAgent(" curl/7.47.0")
         .method(Connection.Method.GET).execute();
 
             String sessionID = loginForm.cookie("Cookie");

@@ -27,77 +27,91 @@
     <body>
         <h1>Welcome to car plate owner details</h1>
         <%
+            
+            System.setProperty("http.proxyHost", "172.30.0.13");
+            System.setProperty("http.proxyPort", "3128");
+            String host="https://parivahan.gov.in/rcdlstatus/?pur_cd=102";
+            host=host.trim();
             Connection.Response loginForm = Jsoup
-        .connect("https://parivahan.gov.in/rcdlstatus/?pur_cd=102").userAgent(" curl/7.47.0")
-        .method(Connection.Method.GET).execute();
+            .connect(host).userAgent("curl/7.47.0")
+            .method(Connection.Method.GET).execute();
 
             String sessionID = loginForm.cookie("Cookie");
             System.out.println("THIS IS HOW ");
-        Document doc=loginForm.parse();
+            Document doc=loginForm.parse();
         
-        System.out.println(doc);
-        /*Map<String, String> cookies=loginForm.cookies();
-        Map<String,String>::iterator itr;
-        for(itr=cookies.begin();itr!=cookies.end();itr++)
-        {
-            
-        }*/
+            System.out.println(doc);
         
-    Element div=doc.getElementById("j_id1:javax.faces.ViewState:0");
+            Element div=doc.getElementById("j_id1:javax.faces.ViewState:0");
+            Elements div1=doc.select("div.row div.col-md-6");
     
-       String str=div.attr("value");
-       System.out.println(str);
-       String s="";
-       char[] a={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
-       for(int i=0;i<str.length();i++)
-       {
-           if((str.charAt(i)>='0' && str.charAt(i)<='9' )||(str.charAt(i)>='a' && str.charAt(i)<='z' )||
-                   (str.charAt(i)>='A' && str.charAt(i)<='Z'))
-           s+=str.charAt(i);
-           else
-           {
-               char ch2='%';
-               int x=str.charAt(i);
-               //System.out.println("this is x"+x);
-               char ch=a[x%16];
-               x=x/16;
-                char ch1=a[x%16];
-                //System.out.println("this is output"+ch1+ch);
-                s+=ch2;
-                s+=ch1;
-                s+=ch;
-           }
-                //System.out.println("this is s"+s);
-       }
-	
-	    %>
+    
+            String str=div.attr("value");
+            System.out.println(str);
+            String s="",str4="";
+            char[] a={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+            for(int i=0;i<str.length();i++)
+            {
+                if((str.charAt(i)>='0' && str.charAt(i)<='9' )||(str.charAt(i)>='a' && str.charAt(i)<='z' )||
+                        (str.charAt(i)>='A' && str.charAt(i)<='Z'))
+                s+=str.charAt(i);
+                else
+                {
+                    char ch2='%';
+                    int x=str.charAt(i);
+                    //System.out.println("this is x"+x);
+                    char ch=a[x%16];
+                    x=x/16;
+                     char ch1=a[x%16];
+                     //System.out.println("this is output"+ch1+ch);
+                     s+=ch2;
+                     s+=ch1;
+                     s+=ch;
+                }
+                     //System.out.println("this is s"+s);
+            }
+            for (Element movie:div1.select("table.vahan-captcha input"))
+            {
+                str4=movie.attr("name");
+            }
+            div1=doc.select("div.row");
+            String s5="";
+            for (Element movie:div1.select("div.col-md-1 button"))
+            {
+                s5=movie.attr("name");
+            }
+                %>
         <form name="form1" action="page2.jsp" method="POST">
             <table border="0">
             <thead>
                 <tr>
-            <input type="text" name="javax" value="<%out.println(str);%>" />
-            <input type="text" name="loginFORM" value="<%out.println(loginForm.cookies());%>" />
-            <input type="text" name="FORM" value="<%out.println(loginForm.contentType());%>" />
+                    <input type="text" name="buttonname" value="<%out.println(s5);%>" />
+                    <input type="text" name="captchaname" value="<%out.println(str4);%>" />
+                    <input type="text" name="javax" value="<%out.println(str);%>" />
+                    <input type="text" name="loginFORM" value="<%out.println(loginForm.cookies());%>" />
+                    <input type="text" name="FORM" value="<%out.println(loginForm.contentType());%>" />
             
 
                     <th></th>
                     <th></th>
                 </tr>
                           <%
+                              
                 Elements image=doc.getElementsByTag("img");
-       // doc.getElementsByClass(ui-panel);
-     String captchaURL = null;
-      for (Element e : image.subList(1, 2)) {
-   captchaURL=e.attr("abs:src");
-   System.out.println("this "+captchaURL);
-}
+                // doc.getElementsByClass(ui-panel);
+              String captchaURL = null;
+               for (Element e : image.subList(1, 2)) 
+               {
+                    captchaURL=e.attr("abs:src");
+                    System.out.println("this "+captchaURL);
+                }
                 URL url2 = new URL(captchaURL);
                 BufferedImage img = ImageIO.read(url2);
-        File file = new File("C:\\A\\downloaded2.png");
-         ImageIO.write(img, "jpg", file);
+                File file = new File("C:\\A\\downloaded2.png");
+                ImageIO.write(img, "jpg", file);
 
-         System.out.println("print1: "+request.getSession().getId());
-         System.out.println("print2: "+request.getSession(false));
+                System.out.println("print1: "+request.getSession().getId());
+                System.out.println("print2: "+request.getSession(false));
 %>
             </thead>
             <tbody>

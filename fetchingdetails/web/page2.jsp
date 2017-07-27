@@ -27,14 +27,13 @@
                 String reg2=regno.substring(regno.length()-4,regno.length());
                 String reg1=regno.substring(0,regno.length()-4);
 
-            extract s4=new extract();
-            String[] s5=s4.extractt(regno);
+                extract s4=new extract();
+                String[] s5=s4.extractt(regno);
             if(s5==null)
             {
                 String s1=request.getParameter("javax");
-            
-            //System.out.println("this was"+s1);
-                //System.out.println("this was"+s1);
+                String cap=request.getParameter("captchaname");
+                String button=request.getParameter("buttonname");
                 String mbno=request.getParameter("phno");
                 //System.out.println("this was"+s1);
                 String cid=request.getParameter("cpt");
@@ -75,17 +74,26 @@
                         .data("form_rcdl:tf_reg_no1",reg1)
                         .data("form_rcdl:tf_reg_no2",reg2)
                         .data("form_rcdl:tf_Mobile",mbno)
-                        .data("form_rcdl:j_idt61","")
-                        .data("form_rcdl:j_idt32:CaptchaID",cid)
+                        .data(button,"")
+                        .data(cap,cid)
                         .ignoreHttpErrors(true)
                         .followRedirects(true)
                         .data("javax.faces.ViewState",s1)
                         .post();
                     out.println(responses);
+                    System.out.println("this is sam"+responses+"this is sanath");
            
                 %>
                 <h1></h1>
+                  <% Element div=responses.getElementById("j_id1:javax.faces.ViewState:0");
+                  String str=div.attr("value");
+                  
+                  %>
+                  
+            
         <form name="form2" action="page3.jsp" method="POST">
+            <input type="text" name="javax2" value="<%out.println(str);%>" />
+            <input type="text" name="loginFORM2" value="<%out.println(ID);%>" />
             <input type="password" name="OTP" value="" size="10" />
             <input type="submit" value="submit" name="OTP" />
         </form>

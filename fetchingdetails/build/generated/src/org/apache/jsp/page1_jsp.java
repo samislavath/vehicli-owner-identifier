@@ -80,8 +80,13 @@ public final class page1_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <h1>Welcome to car plate owner details</h1>\n");
       out.write("        ");
 
+            
+            System.setProperty("http.proxyHost", "172.30.0.13");
+            System.setProperty("http.proxyPort", "3128");
+            String host="https://parivahan.gov.in/rcdlstatus/?pur_cd=102";
+            host=host.trim();
             Connection.Response loginForm = Jsoup
-        .connect("https://parivahan.gov.in/rcdlstatus/?pur_cd=102").userAgent(" curl/7.47.0")
+        .connect(host).userAgent("curl/7.47.0")
         .method(Connection.Method.GET).execute();
 
             String sessionID = loginForm.cookie("Cookie");
@@ -95,12 +100,20 @@ public final class page1_jsp extends org.apache.jasper.runtime.HttpJspBase
         {
             
         }*/
-        
+        /*Elements div1=doc.select("row col-md-6");
+        out.println("hello sam");
+        for (Element movie:div1.select("vahan-captcha"))
+        {
+            out.println("SAM IS A VERY GOOD BOY" +movie.attr("name"));
+        }*/
+        //Element div2=;
     Element div=doc.getElementById("j_id1:javax.faces.ViewState:0");
+    Elements div1=doc.select("div.row div.col-md-6");
+    
     
        String str=div.attr("value");
        System.out.println(str);
-       String s="";
+       String s="",str4="";
        char[] a={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
        for(int i=0;i<str.length();i++)
        {
@@ -122,13 +135,28 @@ public final class page1_jsp extends org.apache.jasper.runtime.HttpJspBase
            }
                 //System.out.println("this is s"+s);
        }
-	
+	for (Element movie:div1.select("table.vahan-captcha input"))
+        {
+            str4=movie.attr("name");
+        }
+        div1=doc.select("div.row");
+        String s5="";
+        for (Element movie:div1.select("div.col-md-1 button"))
+        {
+            s5=movie.attr("name");
+        }
 	    
       out.write("\n");
       out.write("        <form name=\"form1\" action=\"page2.jsp\" method=\"POST\">\n");
       out.write("            <table border=\"0\">\n");
       out.write("            <thead>\n");
       out.write("                <tr>\n");
+      out.write("                    <input type=\"text\" name=\"buttonname\" value=\"");
+out.println(s5);
+      out.write("\" />\n");
+      out.write("                    <input type=\"text\" name=\"captchaname\" value=\"");
+out.println(str4);
+      out.write("\" />\n");
       out.write("            <input type=\"text\" name=\"javax\" value=\"");
 out.println(str);
       out.write("\" />\n");
@@ -145,6 +173,7 @@ out.println(loginForm.contentType());
       out.write("                </tr>\n");
       out.write("                          ");
 
+                              
                 Elements image=doc.getElementsByTag("img");
        // doc.getElementsByClass(ui-panel);
      String captchaURL = null;

@@ -26,19 +26,18 @@
                 String regno=request.getParameter("plateno");
                 String reg2=regno.substring(regno.length()-4,regno.length());
                 String reg1=regno.substring(0,regno.length()-4);
-                extract s4=new extract();
-                String[] s5=s4.extractt(regno);
-            if(s5==null)
-            {
+                //extract s4=new extract();
+                //String[] s5=s4.extractt(regno);
+            //if(s5==null)
+            //{
                 String s1=request.getParameter("javax");
                 String cap=request.getParameter("captchaname");
                 String button=request.getParameter("buttonname");
                 String mbno=request.getParameter("phno");
                 //System.out.println("this was"+s1);
-                String cid=request.getParameter("cpt");
+                String cid=request.getParameter("captcha");
                 //System.out.println("this was"+s1);
-                String s=request.getParameter("loginFORM");
-                out.println("this was loginForm"+s);
+                String s=request.getParameter("cookie");
                 String ID="";
                 for(int i=0;i<s.length()-1;i++)
                 {
@@ -51,22 +50,15 @@
 
                             System.out.println(s.charAt(i));
                             ID+=s.charAt(i);
-                            //System.out.println(ID);
                             i++;
                         }
                     }
                 }
-                out.println("this was loginForm FOR OURSELF"+ID);
-
-                /*String sam=(String)request.getAttribute("key");
-                String sa=request.getParameter(sam);
-                out.println(sa);*///"https://requestb.in/1akmhud1"https://parivahan.gov.in/rcdlstatus/vahan/rcDlHome.xhtml
+                //out.println("this was loginForm FOR OURSELF"+ID);
                     Document responses = 
                         Jsoup.connect("https://parivahan.gov.in/rcdlstatus/vahan/rcDlHome.xhtml")
                         .userAgent(" curl/7.47.0")
-                        //.timeout(10 * 1000000)
                         .method(Method.POST)
-                        //.ignoreContentType(true)
                         .header("Content-Type","application/x-www-form-urlencoded")
                         .cookie("JSESSIONID",ID)
                         .data("form_rcdl","form_rcdl")
@@ -79,8 +71,8 @@
                         .followRedirects(true)
                         .data("javax.faces.ViewState",s1)
                         .post();
-                    out.println(responses);
-                    System.out.println("this is sam"+responses+"this is sanath");
+                    //out.println(responses);
+                    //System.out.println("this is sam"+responses+"this is sanath");
            
                 %>
                 <h1></h1>
@@ -92,18 +84,18 @@
             
         <form name="form2" action="page3.jsp" method="POST">
             <input type="text" name="javax2" value="<%out.println(str);%>" />
-            <input type="text" name="loginFORM2" value="<%out.println(ID);%>" />
+            <input type="text" name="cookie2" value="<%out.println(ID);%>" />
             <input type="password" name="OTP" value="" size="10" />
             <input type="submit" value="submit" name="OTP" />
         </form>
-        <%}
+        <%/*}
         else
         {
             for(int i=0;i<8;i++)
             {
                 out.println(s5[i]);
             }
-        }
+        }*/
         %>
         
     </body>

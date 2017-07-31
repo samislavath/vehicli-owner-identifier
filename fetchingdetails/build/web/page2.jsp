@@ -26,7 +26,6 @@
                 String regno=request.getParameter("plateno");
                 String reg2=regno.substring(regno.length()-4,regno.length());
                 String reg1=regno.substring(0,regno.length()-4);
-
                 extract s4=new extract();
                 String[] s5=s4.extractt(regno);
             if(s5==null)
